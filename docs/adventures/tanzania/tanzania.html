@@ -43,7 +43,7 @@
             background-size: 
                 cover,
                 cover,
-                600px 300px;
+                cover;
             background-position: center;
             position: relative;
             box-shadow: 
@@ -56,21 +56,10 @@
             overflow: hidden;
         }
 
-        /* Replace lines 55-64 with this modified version */
-.globe::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><g fill="%23228B22" opacity="0.6"><path d="M180 120 Q200 100 240 115 T280 125 Q320 130 350 140 L330 170 Q300 180 260 175 T200 165 Q160 160 130 140 Z"/><path d="M50 180 Q80 170 120 175 T180 185 Q220 190 250 200 L230 230 Q200 240 160 235 T100 225 Q60 220 30 200 Z"/><path d="M140 80 Q170 70 200 75 T250 85 Q280 90 310 100 L290 130 Q260 140 220 135 T160 125 Q120 120 90 100 Z"/></g></svg>') no-repeat center;
-    background-size: cover;
-    animation: continentSpin 4s linear forwards reverse;
-    pointer-events: none;
-    opacity: 0; /* Add this line to hide the spinning continents */
-}
+        /* Remove spinning continents completely */
+        .globe::after {
+            display: none;
+        }
 
         .globe::before {
             content: '';
@@ -80,28 +69,29 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            /* Use OpenStreetMap or other free service instead of Google Maps */
-            background-image: url('https://tile.openstreetmap.org/6/32/21.png');
-            background-size: 150%;
+            /* Better Tanzania map with correct aspect ratio */
+            background-image: url('https://tile.openstreetmap.org/4/10/8.png');
+            background-size: cover;
             background-position: center;
             opacity: 0;
             animation: tanzaniaAppear 3s ease-in-out 7s forwards;
         }
 
         .ngorongoro-marker {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #ff4444;
-    border: 3px solid white;
-    border-radius: 50%;
-    top: 65%;     /* Moved south for Tanzania location */
-    left: 68%;    /* Moved east for Tanzania location */
-    opacity: 0;
-    animation: markerPulse 2s ease-in-out 10s forwards;
-    box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
-    z-index: 10;
-}
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border: 3px solid white;
+            border-radius: 50%;
+            /* Correct coordinates for Tanzania on a globe */
+            top: 58%;     /* Tanzania is south of equator but not too far south */
+            left: 62%;    /* Tanzania is east of center Africa */
+            opacity: 0;
+            animation: markerPulse 2s ease-in-out 10s forwards;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
+            z-index: 10;
+        }
 
         .info-panel {
             position: absolute;
@@ -148,18 +138,13 @@
             }
         }
 
-        @keyframes continentSpin {
-            from { transform: rotate(360deg); }
-            to { transform: rotate(0deg); }
-        }
-
         @keyframes zoomToTanzania {
             0% { 
                 transform: scale(1) rotate(360deg);
             }
             100% { 
                 transform: scale(4) rotate(360deg);
-                background-position: 60% 45%;
+                background-position: 62% 58%;
             }
         }
 
@@ -169,7 +154,7 @@
                 transform: scale(0.5);
             }
             to { 
-                opacity: 0.8;
+                opacity: 0.9;
                 transform: scale(1);
             }
         }
