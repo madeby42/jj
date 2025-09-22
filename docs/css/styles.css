@@ -7,7 +7,9 @@ body, html {
 }
 
 .background {
-  background-color: #000; /* Removed background image to avoid conflict */
+  background-image: url('images/person.png'); /* Your background image */
+  background-size: cover;
+  background-position: center;
   height: 100vh;
   position: relative;
 }
