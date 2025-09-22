@@ -36,8 +36,8 @@
                 inset 0 0 50px rgba(0,0,0,0.5),
                 0 0 100px rgba(74, 144, 226, 0.3);
             animation: 
-                spin 4s linear infinite,
-                zoomIn 8s ease-in-out 2s forwards;
+                spin 4s linear forwards,
+                zoomIn 6s ease-in-out 4s forwards;
             transform-origin: center;
         }
 
@@ -51,7 +51,7 @@
             border-radius: 50%;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><g fill="%23228B22" opacity="0.8"><path d="M50 80 Q80 60 120 75 T180 85 Q220 90 250 110 L280 140 Q260 160 230 155 T170 165 Q130 170 90 150 Z"/><path d="M70 180 Q100 170 140 175 T200 185 Q240 190 270 200 L250 230 Q220 240 180 235 T120 225 Q80 220 50 200 Z"/><path d="M20 120 Q50 110 80 115 T130 125 Q160 130 190 140 L170 170 Q140 180 100 175 T40 165 Z"/></g></svg>') no-repeat center;
             background-size: cover;
-            animation: continentSpin 4s linear infinite reverse;
+            animation: continentSpin 4s linear forwards reverse;
         }
 
         .globe::after {
@@ -78,8 +78,9 @@
             top: 45%;
             left: 58%;
             opacity: 0;
-            animation: markerAppear 2s ease-in-out 6s forwards;
+            animation: markerAppear 2s ease-in-out 8s forwards;
             box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
+            z-index: 10;
         }
 
         .marker::before {
@@ -145,38 +146,35 @@
 
         @keyframes spin {
             from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            to { transform: rotate(720deg); }
         }
 
         @keyframes continentSpin {
-            from { transform: rotate(360deg); }
+            from { transform: rotate(720deg); }
             to { transform: rotate(0deg); }
         }
 
         @keyframes zoomIn {
             0% { 
-                transform: scale(1) translateY(0); 
-            }
-            50% { 
-                transform: scale(1.2) translateY(-20px); 
+                transform: scale(1) rotate(720deg); 
             }
             100% { 
-                transform: scale(3) translateY(-100px) translateX(-50px); 
+                transform: scale(4) rotate(720deg) translate(-30px, -50px); 
             }
         }
 
         @keyframes markerAppear {
             0% { 
                 opacity: 0; 
-                transform: scale(0);
+                transform: scale(0) rotate(0deg);
             }
             50% { 
                 opacity: 1; 
-                transform: scale(1.5);
+                transform: scale(2) rotate(180deg);
             }
             100% { 
                 opacity: 1; 
-                transform: scale(1);
+                transform: scale(1) rotate(360deg);
             }
         }
 
