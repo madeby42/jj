@@ -25,15 +25,6 @@ body, html {
   box-sizing: border-box;
 }
 
-.guide {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
 .welcome-text {
   color: white;
   text-align: right;
