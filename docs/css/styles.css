@@ -7,9 +7,8 @@ body, html {
 }
 
 .background {
-  background-image: url('../images/person.png');
+  background: url('../images/person.png') no-repeat center center;
   background-size: cover;
-  background-position: center;
   height: 100vh;
   position: relative;
 }
