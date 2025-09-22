@@ -1,92 +1,216 @@
-<style>
-.globe {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background-image: url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    box-shadow: 
-        inset 0 0 50px rgba(0,0,0,0.5),
-        0 0 100px rgba(74, 144, 226, 0.3);
-    animation: 
-        earthSpin 4s linear forwards,
-        zoomToTanzania 6s ease-in-out 4s forwards;
-    transform-origin: center;
-    overflow: hidden;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey to Ngorongoro Conservation Area</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #0c1445 0%, #000000 100%);
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.globe::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=-3.2,36.8&zoom=6&size=400x400&maptype=satellite&key=YOUR_API_KEY');
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    animation: tanzaniaAppear 3s ease-in-out 7s forwards;
-}
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.ngorongoro-marker {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #ff4444;
-    border: 3px solid white;
-    border-radius: 50%;
-    top: 48%;
-    left: 52%;
-    opacity: 0;
-    animation: markerPulse 2s ease-in-out 10s forwards;
-    box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
-    z-index: 10;
-}
+        .globe {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            /* Fallback gradient if image doesn't load */
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 50%),
+                conic-gradient(from 0deg, #4a90e2, #2e5d8a, #228B22, #4a90e2),
+                linear-gradient(45deg, #4a90e2, #2e5d8a);
+            /* Try multiple image sources */
+            background-image: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent 50%),
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/256px-The_Earth_seen_from_Apollo_17.jpg'),
+                url('https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg');
+            background-size: 
+                cover,
+                cover,
+                600px 300px;
+            background-position: center;
+            position: relative;
+            box-shadow: 
+                inset 0 0 50px rgba(0,0,0,0.5),
+                0 0 100px rgba(74, 144, 226, 0.3);
+            animation: 
+                earthSpin 4s linear forwards,
+                zoomToTanzania 6s ease-in-out 4s forwards;
+            transform-origin: center;
+            overflow: hidden;
+        }
 
-@keyframes earthSpin {
-    from { 
-        transform: rotate(0deg);
-        background-position: 0% center;
-    }
-    to { 
-        transform: rotate(360deg);
-        background-position: 100% center;
-    }
-}
+        /* Add continent overlay for better visibility */
+        .globe::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><g fill="%23228B22" opacity="0.6"><path d="M180 120 Q200 100 240 115 T280 125 Q320 130 350 140 L330 170 Q300 180 260 175 T200 165 Q160 160 130 140 Z"/><path d="M50 180 Q80 170 120 175 T180 185 Q220 190 250 200 L230 230 Q200 240 160 235 T100 225 Q60 220 30 200 Z"/><path d="M140 80 Q170 70 200 75 T250 85 Q280 90 310 100 L290 130 Q260 140 220 135 T160 125 Q120 120 90 100 Z"/></g></svg>') no-repeat center;
+            background-size: cover;
+            animation: continentSpin 4s linear forwards reverse;
+            pointer-events: none;
+        }
 
-@keyframes zoomToTanzania {
-    0% { 
-        transform: scale(1) rotate(360deg);
-    }
-    100% { 
-        transform: scale(4) rotate(360deg);
-        background-position: 60% 45%;
-    }
-}
+        .globe::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            /* Use OpenStreetMap or other free service instead of Google Maps */
+            background-image: url('https://tile.openstreetmap.org/6/32/21.png');
+            background-size: 150%;
+            background-position: center;
+            opacity: 0;
+            animation: tanzaniaAppear 3s ease-in-out 7s forwards;
+        }
 
-@keyframes tanzaniaAppear {
-    from { 
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    to { 
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+        .ngorongoro-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border: 3px solid white;
+            border-radius: 50%;
+            top: 48%;
+            left: 52%;
+            opacity: 0;
+            animation: markerPulse 2s ease-in-out 10s forwards;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
+            z-index: 10;
+        }
 
-@keyframes markerPulse {
-    0%, 100% { 
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% { 
-        opacity: 0.7;
-        transform: scale(1.5);
-    }
-}
-</style>
+        .info-panel {
+            position: absolute;
+            top: 50%;
+            right: 50px;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            opacity: 0;
+            animation: infoSlide 2s ease-in-out 12s forwards;
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .info-panel h1 {
+            margin: 0 0 15px 0;
+            color: #4a90e2;
+            font-size: 1.8em;
+        }
+
+        .info-panel h2 {
+            margin: 0 0 10px 0;
+            color: #87ceeb;
+            font-size: 1.2em;
+        }
+
+        .info-panel p {
+            margin: 0 0 15px 0;
+            line-height: 1.6;
+            font-size: 0.9em;
+        }
+
+        @keyframes earthSpin {
+            from { 
+                transform: rotate(0deg);
+                background-position: 0% center;
+            }
+            to { 
+                transform: rotate(360deg);
+                background-position: 100% center;
+            }
+        }
+
+        @keyframes continentSpin {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes zoomToTanzania {
+            0% { 
+                transform: scale(1) rotate(360deg);
+            }
+            100% { 
+                transform: scale(4) rotate(360deg);
+                background-position: 60% 45%;
+            }
+        }
+
+        @keyframes tanzaniaAppear {
+            from { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to { 
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes markerPulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.7;
+                transform: scale(1.5);
+            }
+        }
+
+        @keyframes infoSlide {
+            from { 
+                opacity: 0; 
+                transform: translateY(-50%) translateX(50px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(-50%) translateX(0); 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="globe">
+            <div class="ngorongoro-marker"></div>
+        </div>
+        
+        <div class="info-panel">
+            <h1>Ngorongoro Conservation Area</h1>
+            <h2>Tanzania, East Africa</h2>
+            <p><strong>Location:</strong> Northern Tanzania</p>
+            <p><strong>Size:</strong> 8,292 km² (3,202 sq mi)</p>
+            <p><strong>Famous for:</strong> The world's largest inactive volcanic caldera, home to over 25,000 large animals including the Big Five.</p>
+            <p><strong>UNESCO World Heritage Site</strong> since 1979</p>
+            <p>Experience the breathtaking wildlife and stunning landscapes of this natural wonder!</p>
+        </div>
+    </div>
+</body>
+</html>
