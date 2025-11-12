@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey to Ngorongoro Conservation Area</title>
+    <title>Journey to Tanzania</title>
     <style>
         body {
             margin: 0;
@@ -41,7 +41,7 @@
                 url('https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg');
             background-size: 
                 cover,
-                400% 200%;
+                600% 300%;
             background-position: 
                 center,
                 0% 50%;
@@ -50,8 +50,8 @@
                 inset 0 0 50px rgba(0,0,0,0.5),
                 0 0 100px rgba(74, 144, 226, 0.3);
             animation: 
-                earthSpin 4s linear forwards,
-                zoomToTanzania 6s ease-in-out 4s forwards;
+                earthSpinToTanzania 6s ease-in-out forwards,
+                zoomToTanzania 4s ease-in-out 6s forwards;
             transform-origin: center;
             overflow: hidden;
         }
@@ -64,37 +64,13 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            /* Tanzania/East Africa detail map */
+            /* Tanzania detail map */
             background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Tanzania_Topography.png/512px-Tanzania_Topography.png');
-            background-size: 120% 120%;
+            background-size: 150% 150%;
             background-position: center;
             background-repeat: no-repeat;
             opacity: 0;
-            animation: tanzaniaAppear 3s ease-in-out 7s forwards;
-        }
-
-        .ngorongoro-marker {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #ff4444;
-            border: 2px solid white;
-            border-radius: 50%;
-            /* Ngorongoro Conservation Area precise coordinates: -3.1618°S, 35.5570°E
-               Converting to pixel position on the globe:
-               - Longitude 35.5570°E = (35.5570 + 180) / 360 = 59.88% from left
-               - Latitude -3.1618°S = (90 - (-3.1618)) / 180 = 51.76% from top
-               Adjusting for the background positioning and globe curvature */
-            top: 51.76%;
-            left: 59.88%;
-            opacity: 0;
-            animation: 
-                markerSpin 4s linear forwards,
-                markerZoom 6s ease-in-out 4s forwards,
-                markerPulse 2s ease-in-out 10s forwards;
-            box-shadow: 0 0 10px rgba(255, 68, 68, 0.8);
-            z-index: 10;
-            transform-origin: center;
+            animation: tanzaniaAppear 3s ease-in-out 8s forwards;
         }
 
         .info-panel {
@@ -107,7 +83,7 @@
             padding: 30px;
             border-radius: 15px;
             opacity: 0;
-            animation: infoSlide 2s ease-in-out 12s forwards;
+            animation: infoSlide 2s ease-in-out 11s forwards;
             max-width: 350px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -131,86 +107,40 @@
             font-size: 0.9em;
         }
 
-        @keyframes earthSpin {
-            from { 
-                transform: rotate(0deg);
+        @keyframes earthSpinToTanzania {
+            0% { 
+                transform: rotate(0deg) scale(1);
                 background-position: center, 0% 50%;
             }
-            to { 
-                transform: rotate(360deg);
-                background-position: center, -100% 50%;
+            50% {
+                transform: rotate(180deg) scale(1);
+                background-position: center, -50% 50%;
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                background-position: center, -60% 52%;
             }
         }
 
         @keyframes zoomToTanzania {
             0% { 
-                transform: scale(1) rotate(360deg);
-                background-position: center, -100% 50%;
-            }
-            50% {
-                transform: scale(2.5) rotate(360deg);
-                background-position: center, -140% 45%;
+                transform: rotate(360deg) scale(1);
+                background-position: center, -60% 52%;
             }
             100% { 
-                transform: scale(4) rotate(360deg);
-                background-position: center, -160% 40%;
-            }
-        }
-
-        @keyframes markerSpin {
-            from { 
-                transform: rotate(0deg);
-                opacity: 0;
-            }
-            to { 
-                transform: rotate(-360deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes markerZoom {
-            0% { 
-                transform: rotate(-360deg) scale(1);
-                top: 51.76%;
-                left: 59.88%;
-            }
-            50% {
-                transform: rotate(-360deg) scale(1.5);
-                top: 48.5%;
-                left: 55.5%;
-            }
-            100% { 
-                transform: rotate(-360deg) scale(2);
-                top: 46%;
-                left: 53%;
+                transform: rotate(360deg) scale(3);
+                background-position: center, -65% 48%;
             }
         }
 
         @keyframes tanzaniaAppear {
             from { 
                 opacity: 0;
-                transform: scale(0.8);
+                transform: scale(0.9);
             }
             to { 
-                opacity: 0.95;
+                opacity: 0.9;
                 transform: scale(1);
-            }
-        }
-
-        @keyframes markerPulse {
-            0%, 100% { 
-                opacity: 1;
-                transform: rotate(-360deg) scale(2);
-                box-shadow: 0 0 15px rgba(255, 68, 68, 0.8);
-                width: 8px;
-                height: 8px;
-            }
-            50% { 
-                opacity: 0.8;
-                transform: rotate(-360deg) scale(2.5);
-                box-shadow: 0 0 25px rgba(255, 68, 68, 1);
-                width: 12px;
-                height: 12px;
             }
         }
 
@@ -262,18 +192,17 @@
     </div>
     
     <div class="container">
-        <div class="globe">
-            <div class="ngorongoro-marker"></div>
-        </div>
+        <div class="globe"></div>
         
         <div class="info-panel">
-            <h1>Ngorongoro Conservation Area</h1>
-            <h2>Tanzania, East Africa</h2>
-            <p><strong>Coordinates:</strong> 3.1618°S, 35.5570°E</p>
-            <p><strong>Size:</strong> 8,292 km² (3,202 sq mi)</p>
-            <p><strong>Famous for:</strong> The world's largest inactive volcanic caldera, home to over 25,000 large animals including the Big Five.</p>
-            <p><strong>UNESCO World Heritage Site</strong> since 1979</p>
-            <p>Experience the breathtaking wildlife and stunning landscapes of this natural wonder!</p>
+            <h1>Tanzania</h1>
+            <h2>East Africa</h2>
+            <p><strong>Capital:</strong> Dodoma</p>
+            <p><strong>Largest City:</strong> Dar es Salaam</p>
+            <p><strong>Area:</strong> 947,303 km² (365,756 sq mi)</p>
+            <p><strong>Famous for:</strong> Mount Kilimanjaro, Serengeti National Park, Ngorongoro Conservation Area, and Zanzibar's pristine beaches.</p>
+            <p><strong>Wildlife:</strong> Home to the Great Migration and the Big Five animals.</p>
+            <p>Discover the natural wonders and rich culture of Tanzania!</p>
         </div>
     </div>
 </body>
