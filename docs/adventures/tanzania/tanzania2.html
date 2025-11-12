@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey to Tanzania</title>
+    <title>Journey to Ngorongoro Conservation Area</title>
     <style>
         body {
             margin: 0;
@@ -35,23 +35,23 @@
                 radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 50%),
                 conic-gradient(from 0deg, #4a90e2, #2e5d8a, #228B22, #4a90e2),
                 linear-gradient(45deg, #4a90e2, #2e5d8a);
-            /* Better Earth texture */
+            /* Earth texture - higher resolution */
             background-image: 
                 radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent 50%),
                 url('https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg');
             background-size: 
                 cover,
-                600% 300%;
+                800% 400%;
             background-position: 
                 center,
-                0% 50%;
+                20% 50%;
             position: relative;
             box-shadow: 
                 inset 0 0 50px rgba(0,0,0,0.5),
                 0 0 100px rgba(74, 144, 226, 0.3);
             animation: 
-                earthSpinToTanzania 6s ease-in-out forwards,
-                zoomToTanzania 4s ease-in-out 6s forwards;
+                earthSpinToTanzania 5s ease-in-out forwards,
+                zoomToNgorongoro 4s ease-in-out 5s forwards;
             transform-origin: center;
             overflow: hidden;
         }
@@ -64,13 +64,13 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            /* Tanzania detail map */
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Ngorongoro_Crater_aerial_view.jpg/1024px-Ngorongoro_Crater_aerial_view.jpg');
-            background-size: 120% 120%;
+            /* High-resolution satellite image of Ngorongoro Crater */
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Ngorongoro_Crater_Landsat.jpg/1024px-Ngorongoro_Crater_Landsat.jpg');
+            background-size: 160% 160%;
             background-position: center;
             background-repeat: no-repeat;
             opacity: 0;
-            animation: tanzaniaAppear 3s ease-in-out 8s forwards;
+            animation: ngorongoroAppear 3s ease-in-out 7s forwards;
         }
 
         .info-panel {
@@ -78,13 +78,13 @@
             top: 50%;
             right: 50px;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             color: white;
             padding: 30px;
             border-radius: 15px;
             opacity: 0;
-            animation: infoSlide 2s ease-in-out 11s forwards;
-            max-width: 350px;
+            animation: infoSlide 2s ease-in-out 10s forwards;
+            max-width: 380px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
@@ -107,47 +107,59 @@
             font-size: 0.9em;
         }
 
+        .coordinates {
+            font-family: 'Courier New', monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
         @keyframes earthSpinToTanzania {
             0% { 
                 transform: rotate(0deg) scale(1);
-                background-position: center, 0% 50%;
+                background-position: center, 20% 50%;
             }
-            50% {
+            30% {
                 transform: rotate(180deg) scale(1);
-                background-position: center, -50% 50%;
+                background-position: center, -30% 50%;
             }
             100% { 
                 transform: rotate(360deg) scale(1);
-                background-position: center, -60% 52%;
+                background-position: center, -38% 48%;
             }
         }
 
-        @keyframes zoomToTanzania {
+        @keyframes zoomToNgorongoro {
             0% { 
                 transform: rotate(360deg) scale(1);
-                background-position: center, -60% 52%;
+                background-position: center, -38% 48%;
+            }
+            50% { 
+                transform: rotate(360deg) scale(2.5);
+                background-position: center, -42% 46%;
             }
             100% { 
-                transform: rotate(360deg) scale(3);
-                background-position: center, -65% 48%;
+                transform: rotate(360deg) scale(4.5);
+                background-position: center, -45% 44%;
             }
         }
 
-        @keyframes tanzaniaAppear {
+        @keyframes ngorongoroAppear {
             from { 
                 opacity: 0;
-                transform: scale(0.9);
+                transform: scale(0.8) rotate(5deg);
             }
             to { 
-                opacity: 0.9;
-                transform: scale(1);
+                opacity: 0.95;
+                transform: scale(1) rotate(0deg);
             }
         }
 
         @keyframes infoSlide {
             from { 
                 opacity: 0; 
-                transform: translateY(-50%) translateX(50px); 
+                transform: translateY(-50%) translateX(60px); 
             }
             to { 
                 opacity: 1; 
@@ -155,7 +167,7 @@
             }
         }
 
-        /* Add some stars in the background */
+        /* Enhanced stars */
         .stars {
             position: fixed;
             top: 0;
@@ -175,6 +187,12 @@
             animation: twinkle 3s ease-in-out infinite alternate;
         }
 
+        .star.bright {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+        }
+
         @keyframes twinkle {
             from { opacity: 0.3; }
             to { opacity: 1; }
@@ -183,26 +201,29 @@
 </head>
 <body>
     <div class="stars">
-        <div class="star" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
-        <div class="star" style="top: 20%; left: 80%; animation-delay: 1s;"></div>
-        <div class="star" style="top: 60%; left: 10%; animation-delay: 2s;"></div>
-        <div class="star" style="top: 80%; left: 90%; animation-delay: 0.5s;"></div>
-        <div class="star" style="top: 15%; left: 60%; animation-delay: 1.5s;"></div>
-        <div class="star" style="top: 75%; left: 25%; animation-delay: 2.5s;"></div>
+        <div class="star bright" style="top: 8%; left: 12%; animation-delay: 0s;"></div>
+        <div class="star" style="top: 18%; left: 85%; animation-delay: 1s;"></div>
+        <div class="star bright" style="top: 25%; left: 5%; animation-delay: 2s;"></div>
+        <div class="star" style="top: 65%; left: 8%; animation-delay: 2.5s;"></div>
+        <div class="star" style="top: 82%; left: 92%; animation-delay: 0.5s;"></div>
+        <div class="star bright" style="top: 12%; left: 65%; animation-delay: 1.5s;"></div>
+        <div class="star" style="top: 78%; left: 28%; animation-delay: 3s;"></div>
+        <div class="star" style="top: 45%; left: 95%; animation-delay: 1.8s;"></div>
     </div>
     
     <div class="container">
         <div class="globe"></div>
         
         <div class="info-panel">
-            <h1>Tanzania</h1>
-            <h2>East Africa</h2>
-            <p><strong>Capital:</strong> Dodoma</p>
-            <p><strong>Largest City:</strong> Dar es Salaam</p>
-            <p><strong>Area:</strong> 947,303 km² (365,756 sq mi)</p>
-            <p><strong>Famous for:</strong> Mount Kilimanjaro, Serengeti National Park, Ngorongoro Conservation Area, and Zanzibar's pristine beaches.</p>
-            <p><strong>Wildlife:</strong> Home to the Great Migration and the Big Five animals.</p>
-            <p>Discover the natural wonders and rich culture of Tanzania!</p>
+            <h1>Ngorongoro Conservation Area</h1>
+            <h2>Northern Tanzania</h2>
+            <p class="coordinates"><strong>Coordinates:</strong> 3.1618°S, 35.5570°E</p>
+            <p><strong>Size:</strong> 8,292 km² (3,202 sq mi)</p>
+            <p><strong>Crater Diameter:</strong> 20 km (12 miles)</p>
+            <p><strong>Famous for:</strong> The world's largest inactive volcanic caldera, home to over 25,000 large animals including lions, elephants, rhinos, leopards, and buffalo.</p>
+            <p><strong>UNESCO World Heritage Site</strong> since 1979</p>
+            <p><strong>Elevation:</strong> 1,800m (5,900ft) at crater rim</p>
+            <p>Experience Africa's "Garden of Eden" - a natural amphitheater teeming with wildlife!</p>
         </div>
     </div>
 </body>
