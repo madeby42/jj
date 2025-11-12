@@ -41,10 +41,10 @@
                 url('https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg');
             background-size: 
                 cover,
-                400% 200%;  /* Make the world map larger so we can pan to Africa properly */
+                400% 200%;
             background-position: 
                 center,
-                0% 50%;  /* Start with Americas/Atlantic visible */
+                0% 50%;
             position: relative;
             box-shadow: 
                 inset 0 0 50px rgba(0,0,0,0.5),
@@ -66,7 +66,7 @@
             border-radius: 50%;
             /* Tanzania/East Africa detail map */
             background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Tanzania_Topography.png/512px-Tanzania_Topography.png');
-            background-size: 120% 120%;  /* Slightly larger to show context */
+            background-size: 120% 120%;
             background-position: center;
             background-repeat: no-repeat;
             opacity: 0;
@@ -75,18 +75,26 @@
 
         .ngorongoro-marker {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 8px;
+            height: 8px;
             background: #ff4444;
-            border: 3px solid white;
+            border: 2px solid white;
             border-radius: 50%;
-            /* Ngorongoro is in northern Tanzania */
-            top: 45%;     /* Northern part of Tanzania */
-            left: 58%;    /* East-central Tanzania */
+            /* Ngorongoro Conservation Area coordinates: 3.2°S, 35.5°E
+               Converting to pixel position on the globe:
+               - Longitude 35.5°E = about 59.75% from left (35.5+180)/360 = ~59.75%
+               - Latitude 3.2°S = about 51.8% from top (90-(-3.2))/180 = ~51.8%
+               Adjusting for the background positioning and globe shape */
+            top: 51.8%;
+            left: 59.75%;
             opacity: 0;
-            animation: markerPulse 2s ease-in-out 10s forwards;
-            box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
+            animation: 
+                markerSpin 4s linear forwards,
+                markerZoom 6s ease-in-out 4s forwards,
+                markerPulse 2s ease-in-out 10s forwards;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.8);
             z-index: 10;
+            transform-origin: center;
         }
 
         .info-panel {
@@ -130,22 +138,51 @@
             }
             to { 
                 transform: rotate(360deg);
-                background-position: center, 360px 50%;  /* Spin the world map */
+                background-position: center, -100% 50%;
             }
         }
 
         @keyframes zoomToTanzania {
             0% { 
                 transform: scale(1) rotate(360deg);
-                background-position: center, 360px 50%;
+                background-position: center, -100% 50%;
             }
             50% {
                 transform: scale(2.5) rotate(360deg);
-                background-position: center, 75% 35%;  /* Pan to East Africa */
+                background-position: center, -140% 45%;
             }
             100% { 
                 transform: scale(4) rotate(360deg);
-                background-position: center, 80% 30%;  /* Focus on Tanzania region */
+                background-position: center, -160% 40%;
+            }
+        }
+
+        @keyframes markerSpin {
+            from { 
+                transform: rotate(0deg);
+                opacity: 0;
+            }
+            to { 
+                transform: rotate(-360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes markerZoom {
+            0% { 
+                transform: rotate(-360deg) scale(1);
+                top: 51.8%;
+                left: 59.75%;
+            }
+            50% {
+                transform: rotate(-360deg) scale(1.5);
+                top: 48%;
+                left: 55%;
+            }
+            100% { 
+                transform: rotate(-360deg) scale(2);
+                top: 45%;
+                left: 52%;
             }
         }
 
@@ -163,13 +200,17 @@
         @keyframes markerPulse {
             0%, 100% { 
                 opacity: 1;
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(255, 68, 68, 0.8);
+                transform: rotate(-360deg) scale(2);
+                box-shadow: 0 0 15px rgba(255, 68, 68, 0.8);
+                width: 8px;
+                height: 8px;
             }
             50% { 
                 opacity: 0.8;
-                transform: scale(1.3);
-                box-shadow: 0 0 30px rgba(255, 68, 68, 1);
+                transform: rotate(-360deg) scale(2.5);
+                box-shadow: 0 0 25px rgba(255, 68, 68, 1);
+                width: 12px;
+                height: 12px;
             }
         }
 
@@ -228,7 +269,7 @@
         <div class="info-panel">
             <h1>Ngorongoro Conservation Area</h1>
             <h2>Tanzania, East Africa</h2>
-            <p><strong>Location:</strong> Northern Tanzania</p>
+            <p><strong>Coordinates:</strong> 3.2°S, 35.5°E</p>
             <p><strong>Size:</strong> 8,292 km² (3,202 sq mi)</p>
             <p><strong>Famous for:</strong> The world's largest inactive volcanic caldera, home to over 25,000 large animals including the Big Five.</p>
             <p><strong>UNESCO World Heritage Site</strong> since 1979</p>
