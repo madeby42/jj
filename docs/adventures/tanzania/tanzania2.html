@@ -80,13 +80,13 @@
             background: #ff4444;
             border: 2px solid white;
             border-radius: 50%;
-            /* Ngorongoro Conservation Area coordinates: 3.2°S, 35.5°E
+            /* Ngorongoro Conservation Area precise coordinates: -3.1618°S, 35.5570°E
                Converting to pixel position on the globe:
-               - Longitude 35.5°E = about 59.75% from left (35.5+180)/360 = ~59.75%
-               - Latitude 3.2°S = about 51.8% from top (90-(-3.2))/180 = ~51.8%
-               Adjusting for the background positioning and globe shape */
-            top: 51.8%;
-            left: 59.75%;
+               - Longitude 35.5570°E = (35.5570 + 180) / 360 = 59.88% from left
+               - Latitude -3.1618°S = (90 - (-3.1618)) / 180 = 51.76% from top
+               Adjusting for the background positioning and globe curvature */
+            top: 51.76%;
+            left: 59.88%;
             opacity: 0;
             animation: 
                 markerSpin 4s linear forwards,
@@ -171,18 +171,18 @@
         @keyframes markerZoom {
             0% { 
                 transform: rotate(-360deg) scale(1);
-                top: 51.8%;
-                left: 59.75%;
+                top: 51.76%;
+                left: 59.88%;
             }
             50% {
                 transform: rotate(-360deg) scale(1.5);
-                top: 48%;
-                left: 55%;
+                top: 48.5%;
+                left: 55.5%;
             }
             100% { 
                 transform: rotate(-360deg) scale(2);
-                top: 45%;
-                left: 52%;
+                top: 46%;
+                left: 53%;
             }
         }
 
@@ -269,7 +269,7 @@
         <div class="info-panel">
             <h1>Ngorongoro Conservation Area</h1>
             <h2>Tanzania, East Africa</h2>
-            <p><strong>Coordinates:</strong> 3.2°S, 35.5°E</p>
+            <p><strong>Coordinates:</strong> 3.1618°S, 35.5570°E</p>
             <p><strong>Size:</strong> 8,292 km² (3,202 sq mi)</p>
             <p><strong>Famous for:</strong> The world's largest inactive volcanic caldera, home to over 25,000 large animals including the Big Five.</p>
             <p><strong>UNESCO World Heritage Site</strong> since 1979</p>
